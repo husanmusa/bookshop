@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package catalog;
+
+service OrderService {
+    rpc Create(Order) returns (Order);
+    rpc Get(ByIdReq) returns (Order);
+    rpc Update(Order) returns (Order);
+    rpc Delete(ByIdReq) returns (EmptyRes);
+    rpc List(ListReq) returns (ListResp);
+}
+
+message EmptyRes{}
+
+message Order {
+    string id = 1;
+    string book_id = 2;
+    string description = 3;
+    string created_at = 4;
+    string update_at = 5;
+}
+
+message ByIdReq {
+    string id = 1;
+}
+
+message ListReq {
+    int64 page = 1;
+    int64 limit = 2;
+}
+
+message ListResp {
+    repeated Order orders = 1;
+    int64 count = 2;
+}
