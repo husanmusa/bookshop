@@ -1,7 +1,7 @@
 package grpc_client
 
 import (
-	"github.com/husanmus/bookshop/config"
+	"github.com/husanmusa/bookshop/config"
 )
 
 type IGrpcClient interface{}

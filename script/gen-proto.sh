@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/bin/zsh
 CURRENT_DIR=$(pwd)
 
-for module in $(find $CURRENT_DIR/protos/* -type d); do
+for module in $(find $CURRENT_DIR/b-protos/* -type d); do
     protoc -I /usr/local/include \
            -I $GOPATH/src/github.com/gogo/protobuf/gogoproto \
-           -I $CURRENT_DIR/protos/ \
+           -I $CURRENT_DIR/b-protos/ \
             --gofast_out=plugins=grpc:$CURRENT_DIR/genproto/ \
             $module/*.proto;
 done;

@@ -1,4 +1,6 @@
-DROP TABLE IF EXISTS authors;
-DROP TABLE IF EXISTS books;
-DROP TABLE IF EXISTS categories;
-
+-- begin;
+DROP TABLE IF EXISTS authors CASCADE;
+DROP TABLE IF EXISTS books CASCADE;
+DROP TABLE IF EXISTS book_categories CASCADE ;
+DROP TABLE IF EXISTS categories CASCADE ;
+-- commit;
