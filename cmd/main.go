@@ -6,18 +6,18 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 
-	"github.com/husanmus/bookshop/config"
-	pb "github.com/husanmus/bookshop/genproto/catalogService"
-	"github.com/husanmus/bookshop/pkg/db"
-	"github.com/husanmus/bookshop/pkg/logger"
-	"github.com/husanmus/bookshop/service"
-	"github.com/husanmus/bookshop/storage"
+	"github.com/husanmusa/bookshop/config"
+	pb "github.com/husanmusa/bookshop/genproto/catalog"
+	"github.com/husanmusa/bookshop/pkg/db"
+	"github.com/husanmusa/bookshop/pkg/logger"
+	"github.com/husanmusa/bookshop/service"
+	"github.com/husanmusa/bookshop/storage"
 )
 
 func main() {
 	cfg := config.Load()
 
-	log := logger.New(cfg.LogLevel, "Catalog")
+	log := logger.New(cfg.LogLevel, "CatalogService")
 	defer func(l logger.Logger) {
 		err := logger.Cleanup(l)
 		if err != nil {
@@ -33,12 +33,12 @@ func main() {
 
 	connDB, err := db.ConnectToDB(cfg)
 	if err != nil {
-		log.Fatal("sqlx connetion to postgres error", logger.Error(err))
+		log.Fatal("sqlx connection to postgres error", logger.Error(err))
 	}
 
 	pgStorage := storage.NewStoragePg(connDB)
 
-	catalogService := service.NewCatalogService(pgStorage, log)
+	CatalogService := service.NewCatalogService(pgStorage, log)
 
 	lis, err := net.Listen("tcp", cfg.RPCPort)
 	if err != nil {
@@ -46,7 +46,8 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-	pb.RegisterCatalogServiceServer(s, catalogService)
+	pb.RegisterCatalogServiceServer(s, CatalogService)
+
 	reflection.Register(s)
 	log.Info("main: server running", logger.String("port", cfg.RPCPort))
 

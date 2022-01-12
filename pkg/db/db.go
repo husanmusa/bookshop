@@ -13,7 +13,7 @@ func ConnectToDB(cfg config.Config) (*sqlx.DB, error) {
 	psqlString := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
 		cfg.PostgresHost,
 		cfg.PostgresPort,
-		cfg.PostgresCatalog,
+		cfg.PostgresUser,
 		cfg.PostgresPassword,
 		cfg.PostgresDatabase,
 	)
@@ -30,7 +30,7 @@ func ConnectDBForSuite(cfg config.Config) (*sqlx.DB, func()) {
 	psqlString := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
 		cfg.PostgresHost,
 		cfg.PostgresPort,
-		cfg.PostgresCatalog,
+		cfg.PostgresUser,
 		cfg.PostgresPassword,
 		cfg.PostgresDatabase,
 	)
